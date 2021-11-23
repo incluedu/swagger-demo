@@ -1,0 +1,96 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "elements",
+      "description": "handle elements"
+    }
+  ],
+  "paths": {
+    "/api/le/get": {
+      "get": {
+        "tags": [
+          "elements"
+        ],
+        "operationId": "getElements",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/BoolElement"
+                      },
+                      {
+                        "$ref": "#/components/schemas/IntElement"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BoolElement": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ElementObject"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "ElementObject": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object"
+          }
+        }
+      },
+      "IntElement": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ElementObject"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
